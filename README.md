@@ -83,3 +83,17 @@ celery -A backend worker --loglevel=info
 celery -A backend beat --loglevel=info
 
 ```
+
+
+Please see my profiles:
+Mail: mh@mahadihassan.com
+GitHub Profile: https://github.com/itsmahadi007
+LinkedIn Profile: https://linkedin.com/in/itsmahadi007
+Personal Website: https://mahadihassan.com/
+Resume: https://www.mahadihassan.com/Mahadi's_Resume.pdf
+
+
+Open Source: Django Advance Thumbnail Package:
+• PyPI: https://pypi.org/project/django-advance-thumbnail/
+• GitHub: https://github.com/itsmahadi007/django_advance_thumbnail
+
