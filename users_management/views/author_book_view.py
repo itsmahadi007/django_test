@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, permissions
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 
 from users_management.filters.filters import BookModelFilter
 from users_management.models import BookModel, AuthorModel
@@ -8,7 +9,7 @@ from users_management.serializers.model_serializers import BookModelSerializerDe
     AuthorModelSerializer, AuthorModelSerializerDetails
 
 
-class BookModelViewSet(viewsets.ModelViewSet):
+class BookModelViewSet(CacheResponseMixin, viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
     filter_backends = [DjangoFilterBackend]
     filterset_class = BookModelFilter
@@ -29,9 +30,11 @@ class BookModelViewSet(viewsets.ModelViewSet):
         queryset = BookModel.objects.select_related("author").all()
         return queryset
 
+    cache_response_timeout = 60 * 60
+
 
 class AuthorModelViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     serializer_classes = {
         "list": AuthorModelSerializerDetails,

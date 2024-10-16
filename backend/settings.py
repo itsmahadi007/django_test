@@ -64,10 +64,9 @@ REST_FRAMEWORK = {
     ],
 
     # 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework.authentication.TokenAuthentication',
-    #     'rest_framework.authentication.SessionAuthentication',
-    # ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }
 
 ROOT_URLCONF = 'backend.urls'
@@ -122,6 +121,18 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute='*/30'),  # Executes every 30 minutes
     },
 
+}
+
+# Caches
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        "LOCATION": f"redis://{REDIS_HOST}:{REDIS_PORT}/1",
+        'OPTIONS': {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
 }
 
 # Password validation
