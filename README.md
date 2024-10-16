@@ -44,7 +44,17 @@ curl --location 'http://127.0.0.1:8000/api/api-token-auth/' \
     "password": "1516"
 }'
 ````
-author:
+
+### Base URL
+`http://127.0.0.1:8000/api/`
+
+
+### Authentication
+- **Method**: Token Authentication
+- **Header**: `Authorization: token <your_access_token>`
+
+### Author Endpoints
+Example Curl Request:
 ```bash
 curl --location 'http://127.0.0.1:8000/api/author/' \
 --header 'Authorization: token dfd7336dc150908ceb93f6009284991b9b4be6f8' \
@@ -57,7 +67,53 @@ curl --location 'http://127.0.0.1:8000/api/author/' \
 
 ```
 
-books:
+#### 1. **List Authors**
+- **URL**: `/author/`
+- **Method**: `GET`
+- **Auth Required**: Yes
+- **Description**: Retrieve a list of all authors.
+
+#### 2. **Create Author**
+- **URL**: `/author/`
+- **Method**: `POST`
+- **Auth Required**: Yes
+- **Data Constraints**:
+    ```json
+    {
+      "name": "[Alphanumeric string]",
+      "date_of_birth": "[Date in YYYY-MM-DD format]"
+    }
+    ```
+- **Description**: Add a new author to the system.
+
+#### 3. **Retrieve Author**
+- **URL**: `/author/{id}/`
+- **Method**: `GET`
+- **Auth Required**: Yes
+- **Description**: Retrieve details of a specific author by ID.
+
+#### 4. **Update Author**
+- **URL**: `/author/{id}/`
+- **Method**: `PUT`
+- **Auth Required**: Yes
+- **Data Constraints**:
+    ```json
+    {
+      "name": "[New name]",
+      "date_of_birth": "[New date of birth]"
+    }
+    ```
+- **Description**: Update details of a specific author.
+
+#### 5. **Delete Author**
+- **URL**: `/author/{id}/`
+- **Method**: `DELETE`
+- **Auth Required**: Yes
+- **Description**: Remove an author from the system.
+
+### Book Endpoints
+
+Example Curl Request:
 ```bash
 curl --location --request GET 'http://127.0.0.1:8000/api/book/' \
 --header 'Authorization: token dfd7336dc150908ceb93f6009284991b9b4be6f8' \
@@ -71,6 +127,55 @@ curl --location --request GET 'http://127.0.0.1:8000/api/book/' \
 }'
 ```
 
+#### 1. **List Books**
+- **URL**: `/book/`
+- **Method**: `GET`
+- **Auth Required**: Yes
+- **Description**: Retrieve a list of all books.
+
+#### 2. **Create Book**
+- **URL**: `/book/`
+- **Method**: `POST`
+- **Auth Required**: Yes
+- **Data Constraints**:
+    ```json
+    {
+      "title": "[Book title]",
+      "author": "[Author ID]",
+      "published_date": "[Date in YYYY-MM-DD format]",
+      "genre": "[Genre name]"
+    }
+    ```
+- **Description**: Add a new book to the system.
+
+#### 3. **Retrieve Book**
+- **URL**: `/book/{id}/`
+- **Method**: `GET`
+- **Auth Required**: Yes
+- **Description**: Retrieve details of a specific book by ID.
+
+#### 4. **Update Book**
+- **URL**: `/book/{id}/`
+- **Method**: `PUT`
+- **Auth Required**: Yes
+- **Data Constraints**:
+    ```json
+    {
+      "title": "[New title]",
+      "author": "[New Author ID]",
+      "published_date": "[New published date]",
+      "genre": "[New genre]"
+    }
+    ```
+- **Description**: Update details of a specific book.
+
+#### 5. **Delete Book**
+- **URL**: `/book/{id}/`
+- **Method**: `DELETE`
+- **Auth Required**: Yes
+- **Description**: Remove a book from the system.
+
+---
 
 
 # run celery worker and beat
