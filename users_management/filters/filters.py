@@ -40,7 +40,7 @@ class BookModelFilter(filters.FilterSet):
             start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
             end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date()
             data = queryset.filter(
-                published_date_range__range=(start_date, end_date)
+                published_date__range=(start_date, end_date)
             )
             return data
         else:

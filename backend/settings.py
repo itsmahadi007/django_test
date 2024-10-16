@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'corsheaders',
+    'django_celery_beat',
     'users_management'
 ]
 
@@ -97,6 +98,30 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+# Redis info
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+
+# CELERY SETTINGS
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
+
+from .celery import app as celery_app
+
+CELERY_TIMEZONE = 'UTC'
+
+# settings/celery.py
+from celery.schedules import crontab
+
+# Celery Beat Schedule
+CELERY_BEAT_SCHEDULE = {
+    'check_old_book': {
+        'task': 'users_management.tasks.check_old_book',
+        'schedule': crontab(minute='*/30'),  # Executes every 30 minutes
+    },
+
 }
 
 # Password validation
